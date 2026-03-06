@@ -1,1 +1,168 @@
-<h1> ben nuri</h1>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Temel Ödevi</title>
+    <style>
+        /* Grup Seçici (Ödev Gereksinimi) */
+        h1, h2, p {
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        body {
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* --- TOOLBAR (HEADER VE MENÜ) --- */
+        header {
+            background-color: #f0f0fa; /* Görseldeki açık mor/gri arka plan */
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+        }
+
+        header h1 {
+            display: inline-block;
+            margin: 0;
+            font-size: 22px;
+            vertical-align: middle;
+        }
+
+        /* Menüyü sağa hizalama */
+        header nav {
+            display: inline-block;
+            float: right; 
+            margin-top: -2px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Menüyü yatay yapmak için display: inline-block (Ödev Gereksinimi) */
+        nav ul li {
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        /* Hiyerarşik Seçici */
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Aktif sayfa (Ana Sayfa) için mavi arka plan */
+        nav ul li a.active {
+            background-color: #a0c4ff;
+            color: #000;
+        }
+
+        /* Hover Efekti (Ödev Gereksinimi) */
+        nav ul li a:hover {
+            background-color: #d0e1ff;
+        }
+
+        /* Header'ın yüksekliğini koruması için float temizleme */
+        header::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        /* -------------------------------- */
+
+        .intro-text {
+            padding: 15px;
+            background-color: #fff;
+            margin: 20px 0;
+            border: 1px solid #eee;
+        }
+
+        .main-container {
+            width: 100%;
+        }
+
+        /* Yan yana kutular için inline-block (Ödev Gereksinimi) */
+        .content-box, .sidebar-box {
+            display: inline-block;
+            vertical-align: top;
+            box-sizing: border-box;
+            padding: 20px;
+            min-height: 200px;
+        }
+
+        .content-box {
+            width: 60%;
+            background-color: #fff4e6;
+            border: 1px solid #ffd8a8;
+            margin-right: 2%;
+        }
+
+        .sidebar-box {
+            width: 37%;
+            background-color: #e7f5ff;
+            border: 1px solid #a5d8ff;
+        }
+
+        /* Hiyerarşik Seçici: .content-box içindeki p etiketleri */
+        .content-box p {
+            line-height: 1.8;
+            text-align: left;
+            font-size: 15px;
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            padding: 15px;
+            background-color: #eee;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>CSS Temel Ödevi</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Ana Sayfa</a></li>
+                <li><a href="about.html">Hakkımda</a></li>
+                <li><a href="interests.html">İlgi alanlarım</a></li>
+                <li><a href="contact.html">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="intro-text">
+        <p>Verilen benzer bir düzenle basit bir web sayfası oluşturun. CSS'in temel özelliklerini uygulayın. Sadece HTML5 + CSS3 kullanın.</p>
+    </div>
+
+    <div class="main-container">
+        <main class="content-box">
+            <h2>İçerik</h2>
+            <p>Bu alanda örnek içerik metinleri bulunmaktadır. Css özellikleriyle bu metinler arasında boşluklar (line-height) ve hizalamalar (text-align) düzenleriz.</p>
+            <p>Önce CSS ile kutuları yan yana getirmeyi öğrendik. Şimdi ise CSS seçicilerini kullanarak hiyerarşik seçimler yapmayı göreceğiz.</p>
+        </main>
+
+        <aside class="sidebar-box">
+            <h2>Yan Menü / Bilgi</h2>
+            <p>Bu alan yan menü veya bilgi kısmıdır. CSS ile genişlik (width), yükseklik (height) ve kenarlık (border) özelliklerini kullanabiliriz.</p>
+            <p>Öğrendiklerimizi hiyerarşik ve grup seçicilerle uygulayıp farklı bölümlere stil verebiliriz.</p>
+        </aside>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CSS Temel Örnek. Bu sayfa basit bir HTML-CSS alıştırmasıdır.</p>
+    </footer>
+
+</body>
+</html>
