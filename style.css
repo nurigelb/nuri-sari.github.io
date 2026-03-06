@@ -1,0 +1,93 @@
+/* Grup Seçici (Ödev Gereksinimi) */
+h1, h2, p {
+    font-family: Arial, sans-serif;
+    margin-bottom: 10px;
+}
+
+body {
+    background-color: #f0f0f5;
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    background-color: #fff;
+    padding: 20px;
+    border-bottom: 2px solid #ddd;
+    text-align: left;
+}
+
+/* Hiyerarşik Seçici 1 (Ödev Gereksinimi) */
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    float: right;
+}
+
+/* Menüyü Yatay Yapma (Ödev Gereksinimi) */
+nav li {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+    transition: 0.3s; /* Hover efekti için */
+}
+
+/* Hover Efekti (Ödev Gereksinimi) */
+nav a:hover {
+    background-color: #e0e0ff;
+    color: #000;
+}
+
+.intro {
+    background-color: #fdfdfd;
+    padding: 15px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+}
+
+.container {
+    width: 100%;
+}
+
+/* İki Sütunlu Düzen (Ödev Gereksinimi) */
+.content, .sidebar {
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 8px;
+    min-height: 250px;
+}
+
+/* Hiyerarşik Seçici 2 (Ödev Gereksinimi) */
+.content p {
+    line-height: 1.6;
+    text-align: justify;
+    font-size: 15px;
+}
+
+.content {
+    width: 58%;
+    background-color: #fff4e6; /* Turuncumsu arka plan */
+    margin-right: 2%;
+    border: 1px solid #ffd8a8;
+}
+
+.sidebar {
+    width: 38%;
+    background-color: #e7f5ff; /* Mavimsi arka plan */
+    border: 1px solid #a5d8ff;
+}
+
+footer {
+    margin-top: 20px;
+    text-align: center;
+    padding: 15px;
+    background-color: #eee;
+    font-size: 14px;
+}
