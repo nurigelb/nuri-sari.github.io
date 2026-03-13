@@ -1,46 +1,278 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>İletişim - Nuri Sarı</title>
+    <style>
+        /* --- GENEL VE MENÜ STİLLERİ --- */
+        h1, h2, p {
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        body {
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #f0f0fa;
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+        }
+
+        header h1 {
+            display: inline-block;
+            margin: 0;
+            font-size: 22px;
+            vertical-align: middle;
+        }
+
+        header nav {
+            display: inline-block;
+            float: right;
+            margin-top: -2px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Aktif sayfa (İletişim) için mavi arka plan */
+        nav ul li a.active {
+            background-color: #a0c4ff;
+            color: #000;
+        }
+
+        nav ul li a:hover {
+            background-color: #d0e1ff;
+        }
+
+        header::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* --- SAYFA BAŞLIK BİLGİLERİ --- */
+        .page-header {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .page-header a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* --- İLETİŞİM FORMU (LAB 3 GÖREVİ) --- */
+        .contact-container {
+            width: 600px; /* Sabit genişlik */
+            max-width: 100%; /* Mobil uyumluluk için */
+            margin: 40px auto; /* Sayfayı ortalama */
+            padding: 30px; /* İç boşluk */
+            border: 2px solid #e0e0e0; /* Kenarlık */
+            border-radius: 8px; /* Köşe yuvarlama */
+            background-color: #ffffff;
+            box-sizing: border-box;
+        }
+
+        .contact-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        /* Çoklu Seçici ile Form Elemanları Ayarları */
+        .contact-container input[type="text"],
+        .contact-container input[type="email"],
+        .contact-container input[type="password"],
+        .contact-container select,
+        .contact-container textarea {
+            width: 100%; /* Tam genişlik */
+            padding: 12px; /* Ferah durması için iç boşluk */
+            margin-bottom: 20px; /* Alt elemanlarla boşluk */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        /* Radio ve Checkbox Grupları İçin Kutu */
+        .form-group-box {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+        }
+
+        .contact-container .inline-label {
+            display: inline;
+            font-weight: normal;
+            margin-left: 5px;
+        }
+
+        .contact-container input[type="radio"],
+        .contact-container input[type="checkbox"] {
+            margin-bottom: 10px;
+        }
+
+        .contact-container .file-input {
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* Butonları Yan Yana Getirme */
+        .button-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Gönder ve Temizle Butonları (Ortak Özellikler) */
+        .btn-submit, .btn-reset {
+            flex: 1; /* Eşit genişlik */
+            padding: 15px 20px; /* Büyütülmüş padding */
+            border: none; /* Kenarlık kaldırıldı */
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        /* Renk Atamaları */
+        .btn-submit {
+            background-color: #007bff; /* Mavi */
+        }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-reset {
+            background-color: #dc3545; /* Kırmızı */
+        }
+
+        .btn-reset:hover {
+            background-color: #c82333;
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            padding: 15px;
+            background-color: #eee;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+    </style>
 </head>
 
 <body>
-    <header>
-        <h1>İletişim</h1>
-        <p>Benimle iletişime geçebileceğiniz bilgiler</p>
-    </header>
 
-    <nav>
-        <ul>
+    <header>
+        <h1>CSS Temel Ödevi</h1>
+        <nav>
             <ul>
-                <li><a href="index.html">Anasayfa</a></li>
+                <li><a href="index.html">Ana Sayfa</a></li>
                 <li><a href="about.html">Hakkımda</a></li>
                 <li><a href="interests.html">İlgi alanlarım</a></li>
-                <li><a href="contact.html">İletişim</a></li>
+                <li><a href="contact.html" class="active">İletişim</a></li>
             </ul>
-        </ul>
-    </nav>
+        </nav>
+    </header>
 
     <main>
-        <h2>İletişim Bilgilerim</h2>
-        <ul>
-            <li>E-Posta: <a href="mailto:sarinuri00@gmail.com">sarinuri00@gmail.com</a></li>
-            <li>Telefon: <a href="tel:+905519798270">+90 551 979 82 70</a></li>
-            <li>Github: <a href="https://github.com/nurigelb">Github Profilim</a></li>
-            <li>LinkedIn: <a href="https://tr.linkedin.com/in/nurigelb">LinkedIn Profilim</a></li>
-        </ul>
+        <div class="page-header">
+            <h2>İletişim Bilgilerim</h2>
+            <p>E-Posta: <a href="mailto:sarinuri00@gmail.com">sarinuri00@gmail.com</a> | Telefon: <a href="tel:+905519798270">+90 551 979 82 70</a></p>
+            <p>Github: <a href="https://github.com/nurigelb" target="_blank">Profilim</a> | LinkedIn: <a href="https://tr.linkedin.com/in/nurigelb" target="_blank">Profilim</a></p>
+        </div>
 
-        <h2>Sık sorulan sorular</h2>
-        <h3>Projelerde işbirliğine açık mısınız?</h3>
-        <p>Evet, iletişim bilgilerim ile bana ulaşabilirsiniz.</p>
+        <div class="contact-container">
+            <h2>Detaylı İletişim Formu</h2>
+            
+            <form action="#" method="POST">
+                
+                <label for="fullname">Ad Soyad:</label>
+                <input type="text" id="fullname" name="fullname" placeholder="Örn: Nuri Sarı">
+
+                <label for="email">E-posta Adresi:</label>
+                <input type="email" id="email" name="email" placeholder="ornek@mail.com">
+
+                <label for="password">Başvuru Takip Şifresi:</label>
+                <input type="password" id="password" name="password" placeholder="Şifrenizi girin">
+
+                <label>İletişim Tercihi:</label>
+                <div class="form-group-box">
+                    <input type="radio" id="contact_email" name="contact_pref" value="email" checked>
+                    <label for="contact_email" class="inline-label">Bana e-posta ile ulaşın</label><br>
+                    <input type="radio" id="contact_phone" name="contact_pref" value="phone">
+                    <label for="contact_phone" class="inline-label">Bana telefonla ulaşın</label>
+                </div>
+
+                <label>İlgi Alanları / Yetenekler:</label>
+                <div class="form-group-box">
+                    <input type="checkbox" id="skill_html" name="skills" value="html">
+                    <label for="skill_html" class="inline-label">HTML</label><br>
+                    <input type="checkbox" id="skill_css" name="skills" value="css">
+                    <label for="skill_css" class="inline-label">CSS</label><br>
+                    <input type="checkbox" id="skill_algo" name="skills" value="algoritma">
+                    <label for="skill_algo" class="inline-label">Algoritma</label>
+                </div>
+
+                <label for="subject">Konu:</label>
+                <select id="subject" name="subject">
+                    <option value="">Lütfen bir konu seçin...</option>
+                    <option value="is_teklifi">İş Teklifi</option>
+                    <option value="soru">Soru</option>
+                    <option value="geri_bildirim">Geri Bildirim</option>
+                </select>
+
+                <label for="resume">Özgeçmiş (CV) veya Fotoğraf Yükle:</label>
+                <input type="file" id="resume" name="resume" class="file-input">
+
+                <label for="message">Mesajınız:</label>
+                <textarea id="message" name="message" rows="4" placeholder="Detaylı mesajınızı buraya yazabilirsiniz..."></textarea>
+
+                <div class="button-group">
+                    <button type="submit" class="btn-submit">Gönder</button>
+                    <button type="reset" class="btn-reset">Temizle</button>
+                </div>
+
+            </form>
+        </div>
     </main>
+
     <footer>
-        <span>&copy; 2026 Web Proglama dersi</span>
-    </footer>       
+        <p>&copy; 2026 Web Programlama Dersi. Bu sayfa basit bir HTML-CSS alıştırmasıdır.</p>
+    </footer>
 
 </body>
-
 </html>
