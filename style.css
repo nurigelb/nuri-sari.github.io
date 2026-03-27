@@ -1,3 +1,37 @@
+/* ===== FLEXBOX UYGULAMASI ===== */
+
+/* ===== SCROLLBAR STİLLERİ ===== */
+/* WebKit Tarayıcılar (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+}
+
+/* ===== GENEL STILLER ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 /* Grup Seçici (Ödev Gereksinimi) */
 h1, h2, p {
     font-family: Arial, sans-serif;
@@ -7,176 +41,233 @@ h1, h2, p {
 body {
     background-color: #f0f0f5;
     margin: 0;
-    padding: 20px;
-}
-
-header {
-    background-color: #fff;
-    padding: 20px;
-    border-bottom: 2px solid #ddd;
-    text-align: left;
-}
-
-/* Hiyerarşik Seçici 1 (Ödev Gereksinimi) */
-nav ul {
-    list-style-type: none;
     padding: 0;
-    float: right;
 }
 
-/* Menüyü Yatay Yapma (Ödev Gereksinimi) */
-nav li {
-    display: inline-block;
-    margin-left: 15px;
+/* ===== ANA WRAPPER - 100vh (Ödev Gereksinimi) ===== */
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* İçerik ekranı aşarsa kaydırma çubuğu çıkar */
+    overflow-y: auto; 
 }
 
-nav a {
+/* Force visible vertical scrollbar on Sonodev page */
+body.sonodev-page {
+    overflow-y: scroll;
+}
+
+/* ===== 1) NAVBAR - 10vh (Ödev Gereksinimi) ===== */
+.navbar {
+    height: 10vh;
+    background-color: #f0f0fa;
+    padding: 0 20px;
+    border-bottom: 2px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Hiyerarşik Seçici (Ödev Gereksinimi) */
+.nav-links {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li a {
     text-decoration: none;
     color: #333;
-    padding: 5px 10px;
-    transition: 0.3s; /* Hover efekti için */
+    padding: 8px 15px;
+    transition: 0.3s;
+    border-radius: 4px;
 }
 
 /* Hover Efekti (Ödev Gereksinimi) */
-nav a:hover {
-    background-color: #e0e0ff;
+.nav-links li a:hover {
+    background-color: #d0e1ff;
     color: #000;
 }
 
-.intro {
-    background-color: #fdfdfd;
-    padding: 15px;
-    margin: 20px 0;
-    border: 1px solid #eee;
+/* Sonodev Butonu Özel Stili */
+.btn-sonodev {
+    background-color: #dc3545 !important;
+    color: white !important;
+    font-weight: bold !important;
+    border-radius: 5px !important;
 }
 
-.container {
-    width: 100%;
+.btn-sonodev:hover {
+    background-color: #c82333 !important;
 }
 
-/* İki Sütunlu Düzen (Ödev Gereksinimi) */
-.content, .sidebar {
-    display: inline-block;
-    vertical-align: top;
-    box-sizing: border-box;
-    padding: 20px;
-    border-radius: 8px;
-    min-height: 250px;
+/* ===== 2) HERO SECTION - 30vh (Ödev Gereksinimi) ===== */
+.hero {
+    height: 30vh;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 15px;
+    background-color: #fff;
 }
 
-/* Hiyerarşik Seçici 2 (Ödev Gereksinimi) */
-.content p {
-    line-height: 1.6;
-    text-align: justify;
-    font-size: 15px;
-}
-
-.content {
-    width: 58%;
-    background-color: #fff4e6; /* Turuncumsu arka plan */
-    margin-right: 2%;
+.hero-content {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 15px;
+    background-color: #fff4e6;
     border: 1px solid #ffd8a8;
+    border-radius: 8px;
 }
 
-.sidebar {
-    width: 38%;
-    background-color: #e7f5ff; /* Mavimsi arka plan */
-    border: 1px solid #a5d8ff;
+.hero-content h1 {
+    font-size: 22px;
+    margin-bottom: 10px;
 }
 
-footer {
-    margin-top: 20px;
+.hero-content p {
+    font-size: 13px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+.hero-image {
+    width: 50%;
+    background-color: #e0e0ff;
+    border: 2px dashed #a0c4ff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #666;
+}
+
+/* ===== 3) KARTLAR BÖLÜMÜ - 30vh (Ödev Gereksinimi) ===== */
+.cards-section {
+    height: 30vh;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 20px;
+    background-color: #f9f9f9;
+    align-content: flex-start;
+}
+
+.card {
+    flex: 0 0 calc(33.333% - 10px);
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.card p {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 5px;
+    flex-grow: 1;
+}
+
+/* ===== 4) FLEX GROW UYGULAMA - 20vh (Ödev Gereksinimi) ===== */
+.flex-grow-section {
+    height: 20vh;
+    display: flex;
+    gap: 10px;
+    padding: 10px 20px;
+    background-color: #f0f5f5;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    border: 2px solid #666;
     text-align: center;
-    padding: 15px;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.box-1 {
+    flex-grow: 1;
+    background-color: #fff3cd;
+    border-color: #ffc107;
+}
+
+.box-2 {
+    flex-grow: 2;
+    background-color: #d1ecf1;
+    border-color: #17a2b8;
+}
+
+.box-3 {
+    flex-grow: 1;
+    background-color: #d4edda;
+    border-color: #28a745;
+}
+
+.box p {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.box small {
+    font-size: 11px;
+    color: #666;
+}
+
+/* ===== 5) FOOTER - 10vh (Ödev Gereksinimi) ===== */
+.footer {
+    height: 10vh;
     background-color: #eee;
+    border-top: 2px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 14px;
 }
-/* İletişim Formu Konteyner Ayarları */
-.contact-container {
-    width: 600px; /* Genişlik verildi */
-    max-width: 100%;
-    margin: 40px auto; /* Sayfayı ortalamak için margin: auto kullanıldı */
-    padding: 30px; /* Elemanların kenarlara yapışmaması için geniş iç boşluk */
-    border: 1px solid #e0e0e0; /* Belirgin kenarlık */
-    border-radius: 8px; /* Hafif köşe yuvarlaması */
-    background-color: #ffffff;
-    box-sizing: border-box;
+
+.footer p {
+    margin: 0;
+    color: #333;
 }
 
-.contact-container label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #444;
-}
-
-/* Form Elemanlarına Toplu Müdahale */
-.contact-container input[type="text"],
-.contact-container input[type="email"],
-.contact-container input[type="password"],
-.contact-container select,
-.contact-container textarea {
-    width: 100%; /* Bulundukları alanın tamamını kaplamaları için */
-    padding: 12px; /* Ferah durması için iç boşluk */
-    margin-bottom: 20px; /* Altlarındaki elemanlarla aralarına boşluk */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-family: inherit;
-}
-
-/* Radio ve Checkbox Alanları için Arka Plan */
-.form-group-box {
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 4px;
-    margin-bottom: 20px;
-}
-
-/* Inline etiketlerin (radio/checkbox yanındaki yazılar) yan yana durması için */
-.contact-container .inline-label {
-    display: inline;
-    font-weight: normal;
-    margin-left: 5px;
-}
-
-.contact-container .file-input {
-    margin-bottom: 20px;
-    display: block;
-}
-
-/* Buton Gruplaması (Yan yana getirmek için) */
-.button-group {
-    display: flex;
-    gap: 15px;
-}
-
-/* Gönder ve Temizle Butonları Genel Ayarları */
-.btn-submit, .btn-reset {
-    flex: 1; /* Butonların eşit genişlikte alanı doldurması için */
-    padding: 15px 20px; /* Hem sağ-sol hem alt-üst geniş padding ile butonu büyütme */
-    border: none; /* Kenarlığı kaldırma */
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
+/* ===== BUTON STİLLERİ ===== */
+.btn {
+    padding: 8px 16px; /* Butonlar da orantılı görünmesi için biraz küçültüldü */
+    background-color: #007bff;
     color: white;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
+    transition: 0.3s;
+    font-size: 13px;
+    font-weight: bold;
 }
 
-/* Gönder Butonu Özel Stili */
-.btn-submit {
-    background-color: #007bff; /* Mavi arka plan */
-}
-
-.btn-submit:hover {
+.btn:hover {
     background-color: #0056b3;
-}
-
-/* Temizle Butonu Özel Stili */
-.btn-reset {
-    background-color: #dc3545; /* Kırmızı arka plan */
-}
-
-.btn-reset:hover {
-    background-color: #c82333;
 }
