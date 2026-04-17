@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birim Dönüştürücü</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: #f0f0fa;
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        header h1 {
+            display: inline-block;
+            margin: 0;
+            font-size: 22px;
+        }
+
+        header nav {
+            display: inline-block;
+            float: right;
+            margin-top: -2px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #d0e1ff;
+        }
+
+        nav ul li a.btn-sonodev {
+            background-color: #dc3545;
+            color: white;
+            font-weight: bold;
+        }
+
+        nav ul li a.btn-sonodev:hover {
+            background-color: #c82333;
+        }
+
+        header::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .converter-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            font-size: 24px;
+        }
+
+        .converter-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 10px;
+            color: #555;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input[type="number"],
+        select {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.4);
+        }
+
+        .result-display {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            border-left: 5px solid #667eea;
+        }
+
+        .result-item {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .result-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .result-label {
+            color: #888;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .result-value {
+            color: #667eea;
+            font-size: 18px;
+            font-weight: bold;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border: none;
+            background-color: #e0e0e0;
+            color: #333;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .converter-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .result-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .tab-buttons {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                width: 100%;
+            }
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔄 Birim Dönüştürücü</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="not-sistemi.html">Not Sistemi</a></li>
+                    <li><a href="birim-donusturucu.html" style="background-color: #a0c4ff; color: #000;">Birim Dönüştürücü</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- SICAKLIK DÖNÜŞTÜRÜCÜ -->
+        <div class="converter-section">
+            <h2>🌡️ Sıcaklık Dönüştürücü</h2>
+            
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="showTemperatureTab('celsius-fahren')">Celsius → Fahrenheit</button>
+                <button class="tab-btn" onclick="showTemperatureTab('celsius-kelvin')">Celsius → Kelvin</button>
+                <button class="tab-btn" onclick="showTemperatureTab('fahren-celsius')">Fahrenheit → Celsius</button>
+            </div>
+
+            <!-- Celsius to Fahrenheit -->
+            <div id="celsius-fahren" class="tab-content active">
+                <div class="converter-wrapper">
+                    <div class="input-group">
+                        <label for="celsius">Celsius (°C) Değeri:</label>
+                        <input type="number" id="celsius" placeholder="Örn: 25" oninput="celsiusToFahrenheit()">
+                    </div>
+                    <div class="result-display">
+                        <div class="result-item">
+                            <span class="result-label">Fahrenheit (°F)</span>
+                            <span class="result-value" id="fahrenheit-result">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Formül</span>
+                            <span class="result-value">°F = (°C × 9/5) + 32</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Celsius to Kelvin -->
+            <div id="celsius-kelvin" class="tab-content">
+                <div class="converter-wrapper">
+                    <div class="input-group">
+                        <label for="celsius-kelvin">Celsius (°C) Değeri:</label>
+                        <input type="number" id="celsius-kelvin" placeholder="Örn: 25" oninput="celsiusToKelvin()">
+                    </div>
+                    <div class="result-display">
+                        <div class="result-item">
+                            <span class="result-label">Kelvin (K)</span>
+                            <span class="result-value" id="kelvin-result">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Formül</span>
+                            <span class="result-value">K = °C + 273.15</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fahrenheit to Celsius -->
+            <div id="fahren-celsius" class="tab-content">
+                <div class="converter-wrapper">
+                    <div class="input-group">
+                        <label for="fahrenheit">Fahrenheit (°F) Değeri:</label>
+                        <input type="number" id="fahrenheit" placeholder="Örn: 77" oninput="fahrenheitToCelsius()">
+                    </div>
+                    <div class="result-display">
+                        <div class="result-item">
+                            <span class="result-label">Celsius (°C)</span>
+                            <span class="result-value" id="celsius-from-fahren-result">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Formül</span>
+                            <span class="result-value">°C = (°F - 32) × 5/9</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UZUNLUK DÖNÜŞTÜRÜCÜ -->
+        <div class="converter-section">
+            <h2>📏 Uzunluk Dönüştürücü</h2>
+            
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="showLengthTab('metre-kilometre')">Metre → Kilometre</button>
+                <button class="tab-btn" onclick="showLengthTab('metre-mil')">Metre → Mil</button>
+                <button class="tab-btn" onclick="showLengthTab('kilometre-metre')">Kilometre → Metre</button>
+                <button class="tab-btn" onclick="showLengthTab('mil-metre')">Mil → Metre</button>
+            </div>
+
+            <!-- Metre to Kilometre -->
+            <div id="metre-kilometre" class="tab-content active">
+                <div class="converter-wrapper">
+                    <div class="input-group">
+                        <label for="metre">Metre (m) Değeri:</label>
+                        <input type="number" id="metre" placeholder="Örn: 1000" oninput="metreToKilometre()">
+                    </div>
+                    <div class="result-display">
+                        <div class="result-item">
+                            <span class="result-label">Kilometre (km)</span>
+                            <span class="result-value" id="kilometre-result">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Formül</span>
+                            <span class="result-value">km = m ÷ 1000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metre to Mile -->
+            <div id="metre-mil" class="tab-content">
+                <div class="converter-wrapper">
+                    <div class="input-group">
+                        <label for="metre-mil">Metre (m) Değeri:</label>
+                        <input type="number" id="metre-mil" placeholder="Örn: 1609.34" oninput="metreToMile()">
+                    </div>
+                    <div class="result-display">
+                        <div class="result-item">
+                            <span class="result-label">Mil (mi)</span>
+                            <span class="result-value" id="mile-result">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Formül</span>
+                            <span class="result-value">mi = m ÷ 1609.34</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kilometre to Metre -->
+            <div id="kilometre-metre" class="tab-content">
+                <div class="converter-wrapper">
+                    <div class="input-group">
+                        <label for="kilometre">Kilometre (km) Değeri:</label>
+                        <input type="number" id="kilometre" placeholder="Örn: 5" oninput="kilometreToMetre()">
+                    </div>
+                    <div class="result-display">
+                        <div class="result-item">
+                            <span class="result-label">Metre (m)</span>
+                            <span class="result-value" id="metre-from-km-result">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Formül</span>
+                            <span class="result-value">m = km × 1000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mile to Metre -->
+            <div id="mil-metre" class="tab-content">
+                <div class="converter-wrapper">
+                    <div class="input-group">
+                        <label for="mil">Mil (mi) Değeri:</label>
+                        <input type="number" id="mil" placeholder="Örn: 1" oninput="mileToMetre()">
+                    </div>
+                    <div class="result-display">
+                        <div class="result-item">
+                            <span class="result-label">Metre (m)</span>
+                            <span class="result-value" id="metre-from-mile-result">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Formül</span>
+                            <span class="result-value">m = mi × 1609.34</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Birim Dönüştürücü. Mühendislik birimleri için hızlı ve kolay dönüşümler.</p>
+        </footer>
+    </div>
+
+    <script>
+        // TAB GEÇIŞLERI
+        function showTemperatureTab(tabId) {
+            // Tüm sıcaklık tab'larını gizle
+            document.getElementById('celsius-fahren').classList.remove('active');
+            document.getElementById('celsius-kelvin').classList.remove('active');
+            document.getElementById('fahren-celsius').classList.remove('active');
+            
+            // Seçilen tab'ı göster
+            document.getElementById(tabId).classList.add('active');
+
+            // Button stillerini güncelle
+            const buttons = document.querySelectorAll('#tab-buttons button');
+            document.querySelectorAll('.converter-section')[0].querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function showLengthTab(tabId) {
+            // Tüm uzunluk tab'larını gizle
+            document.getElementById('metre-kilometre').classList.remove('active');
+            document.getElementById('metre-mil').classList.remove('active');
+            document.getElementById('kilometre-metre').classList.remove('active');
+            document.getElementById('mil-metre').classList.remove('active');
+            
+            // Seçilen tab'ı göster
+            document.getElementById(tabId).classList.add('active');
+
+            // Button stillerini güncelle
+            document.querySelectorAll('.converter-section')[1].querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // SICAKLIK DÖNÜŞÜMLERİ
+        function celsiusToFahrenheit() {
+            const celsius = parseFloat(document.getElementById('celsius').value);
+            if (isNaN(celsius)) {
+                document.getElementById('fahrenheit-result').textContent = '-';
+                return;
+            }
+            const fahrenheit = (celsius * 9/5) + 32;
+            document.getElementById('fahrenheit-result').textContent = fahrenheit.toFixed(2) + ' °F';
+        }
+
+        function celsiusToKelvin() {
+            const celsius = parseFloat(document.getElementById('celsius-kelvin').value);
+            if (isNaN(celsius)) {
+                document.getElementById('kelvin-result').textContent = '-';
+                return;
+            }
+            const kelvin = celsius + 273.15;
+            document.getElementById('kelvin-result').textContent = kelvin.toFixed(2) + ' K';
+        }
+
+        function fahrenheitToCelsius() {
+            const fahrenheit = parseFloat(document.getElementById('fahrenheit').value);
+            if (isNaN(fahrenheit)) {
+                document.getElementById('celsius-from-fahren-result').textContent = '-';
+                return;
+            }
+            const celsius = (fahrenheit - 32) * 5/9;
+            document.getElementById('celsius-from-fahren-result').textContent = celsius.toFixed(2) + ' °C';
+        }
+
+        // UZUNLUK DÖNÜŞÜMLERİ
+        function metreToKilometre() {
+            const metre = parseFloat(document.getElementById('metre').value);
+            if (isNaN(metre)) {
+                document.getElementById('kilometre-result').textContent = '-';
+                return;
+            }
+            const kilometre = metre / 1000;
+            document.getElementById('kilometre-result').textContent = kilometre.toFixed(4) + ' km';
+        }
+
+        function metreToMile() {
+            const metre = parseFloat(document.getElementById('metre-mil').value);
+            if (isNaN(metre)) {
+                document.getElementById('mile-result').textContent = '-';
+                return;
+            }
+            const mile = metre / 1609.34;
+            document.getElementById('mile-result').textContent = mile.toFixed(4) + ' mi';
+        }
+
+        function kilometreToMetre() {
+            const kilometre = parseFloat(document.getElementById('kilometre').value);
+            if (isNaN(kilometre)) {
+                document.getElementById('metre-from-km-result').textContent = '-';
+                return;
+            }
+            const metre = kilometre * 1000;
+            document.getElementById('metre-from-km-result').textContent = metre.toFixed(2) + ' m';
+        }
+
+        function mileToMetre() {
+            const mile = parseFloat(document.getElementById('mil').value);
+            if (isNaN(mile)) {
+                document.getElementById('metre-from-mile-result').textContent = '-';
+                return;
+            }
+            const metre = mile * 1609.34;
+            document.getElementById('metre-from-mile-result').textContent = metre.toFixed(2) + ' m';
+        }
+    </script>
+</body>
+</html>

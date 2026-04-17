@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğrenci Not Sistemi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.4);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-hesapla {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .btn-hesapla:hover {
+            background-color: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-temizle {
+            background-color: #f0f0f0;
+            color: #333;
+            border: 2px solid #ddd;
+        }
+
+        .btn-temizle:hover {
+            background-color: #e0e0e0;
+            border-color: #999;
+        }
+
+        .result-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            display: none;
+            border-left: 5px solid #667eea;
+        }
+
+        .result-section.active {
+            display: block;
+        }
+
+        .result-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .result-label {
+            color: #888;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .result-value {
+            color: #333;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .durum {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .durum.gecti {
+            background-color: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .durum.kaldi {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .harf-notu {
+            display: inline-block;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 10px 15px;
+            background-color: #667eea;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .error {
+            color: #f54747;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #667eea;">
+            <h1 style="margin: 0;">📚 Öğrenci Not Sistemi</h1>
+            <div style="display: flex; gap: 10px;">
+                <a href="index.html" style="padding: 8px 15px; background-color: #f0f0f0; color: #333; text-decoration: none; border-radius: 5px; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#e0e0e0'" onmouseout="this.style.backgroundColor='#f0f0f0'">Ana Sayfa</a>
+                <a href="birim-donusturucu.html" style="padding: 8px 15px; background-color: #f0f0f0; color: #333; text-decoration: none; border-radius: 5px; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#e0e0e0'" onmouseout="this.style.backgroundColor='#f0f0f0'">Birim Dönüştürücü</a>
+            </div>
+        </div>
+
+        <form id="notForm">
+            <div class="form-group">
+                <label for="adSoyad">Ad Soyad:</label>
+                <input type="text" id="adSoyad" placeholder="Adınızı ve soyadınızı giriniz" required>
+                <div class="error" id="errorAdSoyad">Ad Soyad boş bırakılamaz!</div>
+            </div>
+
+            <div class="form-group">
+                <label for="vizeNotu">Vize Notu (0-100):</label>
+                <input type="number" id="vizeNotu" min="0" max="100" placeholder="Vize notunu giriniz" required>
+                <div class="error" id="errorVize">Vize notu 0-100 arasında olmalıdır!</div>
+            </div>
+
+            <div class="form-group">
+                <label for="finalNotu">Final Notu (0-100):</label>
+                <input type="number" id="finalNotu" min="0" max="100" placeholder="Final notunu giriniz" required>
+                <div class="error" id="errorFinal">Final notu 0-100 arasında olmalıdır!</div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="btn-hesapla" onclick="hesapla()">Hesapla</button>
+                <button type="button" class="btn-temizle" onclick="temizle()">Temizle</button>
+            </div>
+        </form>
+
+        <div class="result-section" id="resultSection">
+            <div class="result-item">
+                <div class="result-label">Öğrenci Adı</div>
+                <div class="result-value" id="resultAd">-</div>
+            </div>
+
+            <div class="result-item">
+                <div class="result-label">Ortalama Not (Vize %40 + Final %60)</div>
+                <div class="result-value" id="resultOrtalama">-</div>
+            </div>
+
+            <div class="result-item">
+                <div class="result-label">Harf Notu</div>
+                <div class="result-value">
+                    <span class="harf-notu" id="resultHarf">-</span>
+                </div>
+            </div>
+
+            <div class="result-item">
+                <div class="result-label">Durum</div>
+                <div class="result-value">
+                    <span class="durum" id="resultDurum">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function hesapla() {
+            // Input elementlerini al
+            const adSoyad = document.getElementById('adSoyad').value.trim();
+            const vizeNotu = parseFloat(document.getElementById('vizeNotu').value);
+            const finalNotu = parseFloat(document.getElementById('finalNotu').value);
+
+            // Hataları sıfırla
+            document.getElementById('errorAdSoyad').classList.remove('show');
+            document.getElementById('errorVize').classList.remove('show');
+            document.getElementById('errorFinal').classList.remove('show');
+
+            // Validasyon
+            let hataVar = false;
+
+            if (adSoyad === '') {
+                document.getElementById('errorAdSoyad').classList.add('show');
+                hataVar = true;
+            }
+
+            if (isNaN(vizeNotu) || vizeNotu < 0 || vizeNotu > 100) {
+                document.getElementById('errorVize').classList.add('show');
+                hataVar = true;
+            }
+
+            if (isNaN(finalNotu) || finalNotu < 0 || finalNotu > 100) {
+                document.getElementById('errorFinal').classList.add('show');
+                hataVar = true;
+            }
+
+            if (hataVar) {
+                document.getElementById('resultSection').classList.remove('active');
+                return;
+            }
+
+            // Ortalama hesapla (Vize %40, Final %60)
+            const ortalama = (vizeNotu * 0.40) + (finalNotu * 0.60);
+            const ortalamaYuvarla = ortalama.toFixed(2);
+
+            // Harf notuna çevir
+            let harfNotu;
+            if (ortalama >= 90) {
+                harfNotu = 'AA';
+            } else if (ortalama >= 80) {
+                harfNotu = 'BA';
+            } else if (ortalama >= 70) {
+                harfNotu = 'BB';
+            } else if (ortalama >= 60) {
+                harfNotu = 'CB';
+            } else if (ortalama >= 50) {
+                harfNotu = 'CC';
+            } else {
+                harfNotu = 'FF';
+            }
+
+            // Durum belirle
+            let durum;
+            let durumClass;
+            if (ortalama >= 50) {
+                durum = 'GEÇTİ ✓';
+                durumClass = 'gecti';
+            } else {
+                durum = 'KALDI ✗';
+                durumClass = 'kaldi';
+            }
+
+            // Sonuçları göster
+            document.getElementById('resultAd').textContent = adSoyad;
+            document.getElementById('resultOrtalama').textContent = ortalamaYuvarla;
+            document.getElementById('resultHarf').textContent = harfNotu;
+            const durumElement = document.getElementById('resultDurum');
+            durumElement.textContent = durum;
+            durumElement.className = 'durum ' + durumClass;
+
+            // Result section'ı göster
+            document.getElementById('resultSection').classList.add('active');
+        }
+
+        function temizle() {
+            // Form alanlarını temizle
+            document.getElementById('notForm').reset();
+            
+            // Hataları gizle
+            document.getElementById('errorAdSoyad').classList.remove('show');
+            document.getElementById('errorVize').classList.remove('show');
+            document.getElementById('errorFinal').classList.remove('show');
+
+            // Result section'ı gizle
+            document.getElementById('resultSection').classList.remove('active');
+        }
+
+        // Enter tuşu ile hesaplamaya izin ver
+        document.getElementById('notForm').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                hesapla();
+            }
+        });
+    </script>
+</body>
+</html>
