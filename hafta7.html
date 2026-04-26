@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hafta 7 - Etkinlik Kayıt Uygulaması</title>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles/hafta7.css">
+</head>
+<body id="pageBody">
+
+    <!-- NAVBAR / HEADER -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <strong>Web Programlama</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="hafta7.html">Hafta 7</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Ana Sayfa</a>
+                    </li>
+                    <li class="nav-item">
+                        <button id="themeToggle" class="nav-link btn" style="border: none; background: none; cursor: pointer;">
+                            🌙 Tema Değiştir
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <div class="hero-section bg-primary text-white py-5 text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">Etkinlik Kayıt Sistemi</h1>
+            <p class="lead mb-4">Aşağıdaki formu doldurarak etkinliğe katılmak üzere kayıt olabilirsiniz.</p>
+            <div>
+                <button id="scrollToForm" class="btn btn-light btn-lg me-2">Forma Git</button>
+                <button id="demoButton" class="btn btn-outline-light btn-lg">Demo Verileri Yükle</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- INFO CARDS SECTION -->
+    <div class="container py-5">
+        <h2 class="text-center mb-5 fw-bold">Etkinlik Hakkında</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm rounded-4 border-0">
+                    <div class="card-body text-center">
+                        <div class="card-icon mb-3" style="font-size: 2.5rem;">📅</div>
+                        <h5 class="card-title">Tarih ve Saat</h5>
+                        <p class="card-text text-muted">15 Mayıs 2026, 14:00 - 18:00 saatleri arasında gerçekleşecektir.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm rounded-4 border-0">
+                    <div class="card-body text-center">
+                        <div class="card-icon mb-3" style="font-size: 2.5rem;">📍</div>
+                        <h5 class="card-title">Yer</h5>
+                        <p class="card-text text-muted">Üniversite Bilgisayar Laboratuvarı, Bina A, Kat 3.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm rounded-4 border-0">
+                    <div class="card-body text-center">
+                        <div class="card-icon mb-3" style="font-size: 2.5rem;">👥</div>
+                        <h5 class="card-title">Katılımcı</h5>
+                        <p class="card-text text-muted">Bootstrap ve JavaScript konularında eğitim almak isteyenler katılabilir.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REGISTRATION FORM SECTION -->
+    <div class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Kayıt Formu</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <form id="registrationForm" class="bg-white p-5 rounded-4 shadow-sm">
+                        
+                        <!-- Ad Soyadı -->
+                        <div class="mb-4">
+                            <label for="fullName" class="form-label fw-bold">Ad Soyadı <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-lg" id="fullName" placeholder="Adınızı ve soyadınızı giriniz" required>
+                            <small class="text-danger" id="fullNameError" style="display: none;"></small>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-4">
+                            <label for="email" class="form-label fw-bold">E-posta <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control form-control-lg" id="email" placeholder="ornek@email.com" required>
+                            <small class="text-danger" id="emailError" style="display: none;"></small>
+                        </div>
+
+                        <!-- Telefon -->
+                        <div class="mb-4">
+                            <label for="phone" class="form-label fw-bold">Telefon Numarası <span class="text-danger">*</span></label>
+                            <input type="tel" class="form-control form-control-lg" id="phone" placeholder="05XX XXX XXXX" required>
+                            <small class="text-danger" id="phoneError" style="display: none;"></small>
+                        </div>
+
+                        <!-- Bölüm / Fakülte -->
+                        <div class="mb-4">
+                            <label for="department" class="form-label fw-bold">Bölüm / Fakülte <span class="text-danger">*</span></label>
+                            <select class="form-select form-select-lg" id="department" required>
+                                <option selected disabled value="">-- Bölüm Seçiniz --</option>
+                                <option value="Bilgisayar Mühendisliği">Bilgisayar Mühendisliği</option>
+                                <option value="Yazılım Mühendisliği">Yazılım Mühendisliği</option>
+                                <option value="Elektrik Mühendisliği">Elektrik Mühendisliği</option>
+                                <option value="İnşaat Mühendisliği">İnşaat Mühendisliği</option>
+                                <option value="Diğer">Diğer</option>
+                            </select>
+                            <small class="text-danger" id="departmentError" style="display: none;"></small>
+                        </div>
+
+                        <!-- Deneyim Seviyesi -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Web Programlama Deneyimi <span class="text-danger">*</span></label>
+                            <div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="experience" id="exp1" value="Başlangıç" required>
+                                    <label class="form-check-label" for="exp1">Başlangıç (ilk defa)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="experience" id="exp2" value="Orta Seviye">
+                                    <label class="form-check-label" for="exp2">Orta Seviye</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="experience" id="exp3" value="İleri Seviye">
+                                    <label class="form-check-label" for="exp3">İleri Seviye</label>
+                                </div>
+                            </div>
+                            <small class="text-danger" id="experienceError" style="display: none;"></small>
+                        </div>
+
+                        <!-- Ek Bilgi / Notlar -->
+                        <div class="mb-4">
+                            <label for="notes" class="form-label fw-bold">Ek Bilgi / Notlar</label>
+                            <textarea class="form-control form-control-lg" id="notes" rows="3" placeholder="Etkinlik organizatörüne iletmek istediğiniz herhangi bir not varsa yazabilirsiniz..."></textarea>
+                        </div>
+
+                        <!-- Şartları Kabul Etme -->
+                        <div class="mb-4 form-check">
+                            <input type="checkbox" class="form-check-input" id="terms" required>
+                            <label class="form-check-label" for="terms">
+                                Etkinlik şartlarını okudum ve kabul ediyorum <span class="text-danger">*</span>
+                            </label>
+                            <small class="text-danger" id="termsError" style="display: none;"></small>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Kayıt Yap</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULTS SECTION -->
+    <div class="container py-5">
+        <h2 class="text-center mb-4 fw-bold">Başvuru Özeti</h2>
+        <div id="resultArea">
+            <div class="text-center text-muted">
+                <p>Form verilerini gündükten sonra özet burada gösterilecektir.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white py-4 text-center">
+        <div class="container">
+            <p class="mb-0">&copy; 2026 Hafta 7 Laboratuvarı - Etkinlik Kayıt Sistemi</p>
+            <small class="text-muted">Bootstrap 5 + JavaScript ile yapılmıştır.</small>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="scripts/hafta7.js"></script>
+
+</body>
+</html>
